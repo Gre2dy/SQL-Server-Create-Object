@@ -1,0 +1,14 @@
+/* Create Linked Server */
+exec sp_addlinkedserver
+	@server = 'LinkedServer alias' --- Target Server 별칭
+,	@srvproduct = ''
+,	@provider = 'SQLOLEDB'
+,	@datasrc = 'hostname\instancename' --- Target Server Instance
+,	@catalog = 'DBName' --- 연결할 데이터베이스
+
+/* Create Linked Server Login */
+exec sp_addlinkedsrvlogin
+	@rmtsrvname = 'LinkedServer alias' --- 로그인을 생성할 Linked server
+,	@useself = 'false' 
+,	@rmtuser = 'LoginName' --- 로그인할 UserName
+,	@rmtpassword = 'Password' --- User password
