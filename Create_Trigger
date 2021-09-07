@@ -1,0 +1,29 @@
+/* Server DDL Create Trigger */
+
+CREATE TRIGGER ddlTrg_Server
+ON ALL SERVER
+AFTER CREATE_DATABASE, ALTER_DATABASE, DROP_DATABASE
+-- 이는 AFTER DDL_DATABASE_EVENTS 그룹과 동일하다
+AS
+    PRINT N'경고 : 데이터베이스 관련된 작업은 관리자에게 문의하세요'
+    ROLLBACK TRAN
+GO 
+
+
+
+/* Database DML Create Trigger */
+Create Trigger [Schema].[TriggerName] On [Schema].[Target_TBL_Name] --- Insert(DML)이 발생하는 Table
+	For Insert
+	As
+		Begin
+			
+			End
+			
+			
+Ex) Create Trigger [dbo].[Raiserror] on [dbo].[SourceTBL]
+	For insert
+		As
+			Begin
+				Raiserror('Insert 하지마세요.', 15, 15)
+				Delete From SourceTBL Where Seq > '1'
+			end
